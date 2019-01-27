@@ -1,0 +1,8 @@
+{
+  "name": "hacker-news-feed",
+  "description": "An excercise in REST API consumption",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Eric <ericbdev@gmail.com>",
+  "license": "MIT"
+}
