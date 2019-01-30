@@ -7,6 +7,7 @@
 ## Todo:
 - Improve logic fetching stories based on IDs
 - Get comments for a story
-    - Rank comments by score
-    - Pick top 20
+    - Improve logic
+        - Dispatch batches of comments to load in to their story
+        - Prevent tandem fetch call
 - Get comment children
