@@ -28,13 +28,16 @@ const reducer: Reducer<StoryState> = (
     case `${actionTypes.FETCH_ID.success}`:
       return {
         ...state,
-        ...payload,
+        stories: [
+          ...state.stories,
+          payload,  
+        ],
         isFetching: false,
       };
     case `${actionTypes.FETCH_TOP.success}`:
       return {
         ...state,
-        stories: [...state.stories, ...payload.stories],
+        storyIds: [...state.storyIds, ...payload.storyIds],
         isFetching: false,
       };
     case `${actionTypes.FETCH_ID.error}`:

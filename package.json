@@ -18,9 +18,11 @@
     "webpack-cli": "^3.2.1"
   },
   "dependencies": {
+    "@material-ui/core": "^3.9.1",
     "@types/node": "^10.12.18",
     "@types/react": "^16.7.21",
     "@types/react-dom": "^16.0.11",
+    "cross-fetch": "^3.0.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",

@@ -1,5 +1,5 @@
 import { standardizeAction } from '../utils';
-import { sampleStories } from '../../samples/stories';
+import api from '../../lib/api';
 
 const prefix: string = 'story';
 const actionTypes = {
@@ -7,19 +7,42 @@ const actionTypes = {
   FETCH_ID: standardizeAction(`${prefix}/FETCH_ID`),
 };
 
-const requestTopStories = (count: number) => ({
+const topStoriesRequest = (count: number) => ({
   type: actionTypes.FETCH_TOP.request,
   payload: { count },
 });
 
-const receiveTopStories = payload => ({
+const topStoriesSuccess = payload => ({
   type: actionTypes.FETCH_TOP.success,
   payload,
 });
 
+const storyRequest = (itemId: Number) => ({
+  type: actionTypes.FETCH_ID.request,
+  payload: { itemId },
+});
+
+const storySuccess = payload => ({
+  type: actionTypes.FETCH_ID.success,
+  payload,
+});
+
 const fetchTopStories = payload => dispatch => {
-  dispatch(requestTopStories(payload.count));
-  dispatch(receiveTopStories({ stories: sampleStories }));
+  dispatch(topStoriesRequest(payload.count));
+
+  api.getTopStoryIds().then(response => {
+    const topStories = response.slice(0, 10);
+    dispatch(topStoriesSuccess({ storyIds: topStories }));
+
+    // TODO: This should be its own dispirate action
+    topStories.forEach(storyId => {
+      dispatch(storyRequest(storyId));
+
+      api.getStoryById(storyId).then(story => {
+        dispatch(storySuccess(story));
+      });
+    });
+  });
 };
 
 const actions = {
