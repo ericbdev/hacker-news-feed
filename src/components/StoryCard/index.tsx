@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Story from '../../types/Story';
+import Comments from '../Comments/';
 
 const styles = theme => ({
   card: {
@@ -33,8 +34,15 @@ class StoryCard extends React.PureComponent<P> {
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
-              <Typography component='h5' variant='h5'>
-                {story.title}
+              <Typography component='h2' variant='h5'>
+                <Link 
+                  href={story.url}
+                  target='_blank'
+                  block
+                  underline='hover'
+                >
+                  {story.title}
+                </Link>
               </Typography>
               {story.text && (
                 <Typography 
@@ -55,6 +63,9 @@ class StoryCard extends React.PureComponent<P> {
                   </Link>
                 </Typography>
               )}
+              {(story.kids && story.kids.length) && 
+                <Comments story={story} />
+              }
             </CardContent>
           </div>
         </Card>
