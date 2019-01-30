@@ -9,15 +9,24 @@
       "es2017",
       "dom"
     ],
+    "outDir": "./dist",
+    "rootDir": "./src",
     "removeComments": true,
     "allowSyntheticDefaultImports": false,
     "jsx": "react",
-    "allowJs": true,
+    "allowJs": false,
     "baseUrl": "./",
     "paths": {
       "components/*": [
         "src/components/*"
       ],
+      "containers/*": [
+        "src/containers/*"
+      ],
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
