@@ -1,21 +1,34 @@
 import * as React from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { actions } from '../../store/comment/actions';
 import Story from '../../types/Comment';
 import Comment from '../../types/Comment';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import {ExpandMore} from '@material-ui/icons'; 
 
 const styles = theme => ({
   commentRoot: {
     display: 'block',
     marginTop: theme.spacing.unit * 2,
   },
+  commentList: {
+    listStyle: 'none',
+    marginTop: 0,
+    paddingLeft: 0,
+  },
+  commentListItem: {
+    '&:not(:first-child)': {
+      borderTop: `1px solid currentColor`,
+      marginTop: theme.spacing.unit * 2,
+      paddingTop: theme.spacing.unit * 2,
+    }
+  },
+  commentCredits: {
+    fontSize: '90%',
+    marginTop: theme.spacing.unit
+  }
 });
 
 type P = {
@@ -28,19 +41,26 @@ type P = {
 type CommentProps = {
   comment: Comment;
   key: number;
+  classes: any;
 };
 
 const Comment = (props: CommentProps) => {
-  const comment = props.comment;
+  const {comment, classes} = props;
 
   return (
-    <li>
-      <Typography component='p' variant='body2'>
+    <li className={classes.commentListItem}>
+      <Typography component='div' variant='body1'>
         {comment.text}
+        
+        <div className={classes.commentCredits}>
+          by: <em>{ comment.by }</em>
+        </div>
       </Typography>
     </li>
   )
 };
+
+const CommentListItem = withStyles(styles)(Comment);
 
 class Comments extends React.Component<P> {
   componentDidMount = () => {
@@ -54,16 +74,24 @@ class Comments extends React.Component<P> {
 
     return (
       <div className={classes.commentRoot}>
-        <Typography component='h6' variant='subtitle2'>
-          Comments
-        </Typography>
-        <ul>
-          {story.kids.map(itemId => {
-            return comments[itemId] && (
-              <Comment key={itemId} comment={comments[itemId]} />
-            );
-          })}
-        </ul>
+      <ExpansionPanel>
+        <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+          <Typography component='h6' variant='subtitle2'>
+            Comments
+          </Typography>
+        </ExpansionPanelSummary>
+
+        <ExpansionPanelDetails>
+          <ul className={classes.commentList}>
+            {story.kids.map(itemId => {
+              return comments[itemId] && (
+                <CommentListItem key={itemId} comment={comments[itemId]} />
+              );
+            })}
+          </ul>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+        
       </div>
     );
   }

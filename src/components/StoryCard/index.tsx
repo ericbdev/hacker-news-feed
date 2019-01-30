@@ -28,6 +28,7 @@ type P = {
 class StoryCard extends React.PureComponent<P> {
   render() {
     const { story, classes } = this.props;
+    const hasLink = !!story.url;
 
     return (
       <Grid item xs={12} md={6}>
@@ -36,31 +37,21 @@ class StoryCard extends React.PureComponent<P> {
             <CardContent>
               <Typography component='h2' variant='h5'>
                 <Link 
-                  href={story.url}
+                  href={hasLink ? story.url : null}
+                  component={hasLink ? 'a' : 'span'}
                   target='_blank'
                   block
-                  underline='hover'
+                  underline={hasLink ? 'hover' : 'none'}
                 >
                   {story.title}
                 </Link>
               </Typography>
               {story.text && (
                 <Typography 
-                  variant='body2'
+                  variant='body1'
                   className={classes.cardParagraph}
                 >
                   {story.text}
-                </Typography>
-              )}
-              {story.url && (
-                <Typography
-                  variant='body2'
-                  color='primary'
-                  className={classes.cardParagraph}
-                >
-                  <Link href={story.url} target='_blank'>
-                    Continue reading...
-                  </Link>
                 </Typography>
               )}
               {(story.kids && story.kids.length) && 
