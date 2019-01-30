@@ -1,13 +1,13 @@
 import * as React from 'react';
+import Story from '../../types/Story';
 
 type P = {
-  title: string;
   fetchTopStories(): void;
-  stories: Array<any>;
+  stories: Array<Story>;
 };
 
 type S = {
-  stories: Array<any>;
+  stories: Array<Story>;
 };
 
 class App extends React.Component<P, S> {
@@ -21,9 +21,10 @@ class App extends React.Component<P, S> {
 
   render() {
     const { stories } = this.props;
+    
     return (
       <div>
-        <h1>{this.props.title}</h1>
+        <h1>Hacker News Feed</h1>
         {stories.map(story => (
           <div key={story.id}>{story.title}</div>
         ))}

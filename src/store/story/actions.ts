@@ -1,4 +1,5 @@
 import { standardizeAction } from '../utils';
+import { sampleStories } from '../../samples/stories';
 
 const prefix: string = 'story';
 const actionTypes = {
@@ -17,19 +18,8 @@ const receiveTopStories = payload => ({
 });
 
 const fetchTopStories = payload => dispatch => {
-  const stories = [
-    {
-      id: 1,
-      title: 'Test 1',
-    },
-    {
-      id: 2,
-      title: 'Test 2',
-    },
-  ];
-
   dispatch(requestTopStories(payload.count));
-  dispatch(receiveTopStories({ stories }));
+  dispatch(receiveTopStories({ stories: sampleStories }));
 };
 
 const actions = {

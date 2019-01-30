@@ -6,7 +6,7 @@ import App from './containers/App';
 
 render(
   <Provider store={store}>
-    <App title='Hacker News Feed' />
+    <App />
   </Provider>,
   document.getElementById('root'),
 );

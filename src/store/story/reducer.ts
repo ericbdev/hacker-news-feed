@@ -1,9 +1,10 @@
 import { Reducer } from 'redux';
+import Story from '../../types/Story';
 import { actionTypes } from './actions';
 
 type StoryState = {
   storyIds: Array<number>;
-  stories: Array<any>;
+  stories: Array<Story>;
   isFetching: Boolean;
 };
 
